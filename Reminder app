@@ -1,0 +1,45 @@
+from tkinter import *
+def addReminder():
+    reminders.append(entry.get())
+    for i, reminder in enumerate(reminders):
+        try:
+            labels[i].pack()
+        except:
+            labels.append(Label(root, text=str(reminder), fg="blue", font="Verdana 10 bold"))
+            labels[i].pack()
+def removeReminder():
+    global label1
+    def normalize():
+        label1.configure(text = "Welcome!")
+    try:
+        r = reminders.pop(reminders.index(entry.get()))
+        for label in labels:
+            if label['text'] == r:
+                label.destroy()
+                del labels[labels.index(label)]
+    except:
+        label1.configure(text = "Error!")
+        label1.after(1000, normalize)
+def addTimer():
+    pass
+def removeTimer():
+    pass
+
+root = Tk() 
+root.title("Reminders") 
+root.minsize(width=350, height=450)
+label1 = Label(root, text="Welcome!", fg="black", font="Verdana 30 bold") 
+label1.pack()
+entry = Entry(root)
+entry.pack()
+button1 = Button(root, text='Add reminder', width=15, command=addReminder)
+button1.pack()
+button2 = Button(root, text='Remove reminder', width=15, command=removeReminder)
+button2.pack()
+button3 = Button(root, text='Add Timer', width=15, command=addTimer)
+button3.pack()
+button4 = Button(root, text='Remove Timer', width=15, command=removeTimer)
+button4.pack()
+labels = []
+reminders = []
+root.mainloop()
